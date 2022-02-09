@@ -1,6 +1,7 @@
 from engine import Engine
 
 markups = True
+# make this False if the code prints gibberish for you
 
 table = [0]*9
 ptype = 'X'
