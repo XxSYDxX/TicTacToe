@@ -14,6 +14,14 @@ def ptab(table):
             print(row)
             row = ''
 
+def intable(val):
+    try:
+        int(val)
+        return True
+    except ValueError:
+        return False
+
+
 first = 1
 if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
     first = 2
@@ -24,7 +32,10 @@ e = Engine()
 
 if first == 1:
     ptab(table)
-    pmove = int(input("Your move: [1-9] "))-1
+    pmove = input("Your move: [1-9] ")
+    while not intable(pmove):
+        pmove = input("Your move: [1-9] ")
+    pmove = int(pmove)-1
     while pmove < 0 or pmove > 8:
         pmove = int(input("Your move: [1-9] "))-1
     table[pmove] = 1
@@ -36,11 +47,16 @@ while 1:
     finished = e.state(table)
     if not finished:
         ptab(table)
-        pmove = int(input("Your move: [1-9] "))-1
+        pmove = input("Your move: [1-9] ")
+        while not intable(pmove):
+            pmove = input("Your move: [1-9] ")
+        pmove = int(pmove)-1
         while pmove < 0 or pmove > 8 or table[pmove]:
-            pmove =int(input("Your move: [1-9] "))-1
+            pmove = int(input("Your move: [1-9] "))-1
         table[pmove] = 1
         emove = e.engine_move(table)
+        if emove == -1:
+            continue
         table[emove] = 2
         
     else:

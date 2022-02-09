@@ -50,9 +50,9 @@ class Engine:
 
 # TicTacToe Board Configuration
 table = [
-    0,0,0,
-    0,0,0,
-    0,0,0,
+    2,1,1,
+    1,2,2,
+    1,2,1,
 ]
 # 0 = Empty square
 # 1 = Move by player
@@ -63,12 +63,14 @@ edge_middles=[1, 3, 5, 7]
 opposite_corner = {2:6, 6:2, 0:8, 8:0}
 adjacent_corners = {0:[2,6], 2:[0,8], 6:[0,8], 8:[2,6]}
 
+
 # Determine the state of the game
 def end():
     if not check(table):
         return 0 not in table
     else:
         return 1
+
 
 # Return the next move for the engine
 def next_move():
@@ -94,7 +96,8 @@ def next_move():
         
         # Hardcoded strats for defense
         if table.count(1) == 1 and table.count(0) == 8:
-            return 4
+            if table.index(1) in corners:
+                return 4
         if table.count(1) == 2 and table.count(2) == 1:
             t = table.index(1)
             if t in corners:
@@ -206,4 +209,4 @@ def best_moves(stats):
     return most_win_moves
     
     
-    
+# print(next_move())
