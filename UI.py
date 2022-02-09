@@ -1,15 +1,22 @@
 from engine import Engine
 
+markups = True
+
 table = [0]*9
 ptype = 'X'
 etype = 'O'
 
+class markups:
+    bcyan = '\033[96m\033[1m' if markups else ''
+    bred = '\033[91m\033[1m' if markups else ''
+    normal = '\033[0m'
+    
 def ptab(table):
     row = ''
     for i in range(9):
         if table[i] == 0: row += ' ' + str(i+1)
-        if table[i] == 1: row += '\033[1m\033[96m ' + ptype + '\033[0m'
-        if table[i] == 2: row += '\033[1m\033[91m ' + etype + '\033[0m'
+        if table[i] == 1: row += markups.bcyan + ' ' + ptype + markups.normal
+        if table[i] == 2: row += markups.bred + ' ' + etype + markups.normal
         if i in (2, 5, 8): 
             print(row)
             row = ''
