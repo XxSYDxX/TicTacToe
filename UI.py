@@ -26,7 +26,6 @@ def ptab(table, matched_line = []):
 
 
 def get_move():
-    table = [0]*9
     move = input("Your move: [1-9/q] " + markups.bcyan)
     print(markups.normal, end='')
     if move.lower().strip() == 'q':
