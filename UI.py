@@ -28,7 +28,8 @@ def ptab(table, matched_line = []):
 
 def get_move():
     table = [0]*9
-    move = input("Your move: [1-9/q] ")
+    move = input("Your move: [1-9/q] " + markups.bcyan)
+    print(markups.normal, end='')
     if move.lower().strip() == 'q':
         exit()
     if move.isnumeric() and int(move) in range(1, 10):
@@ -49,10 +50,11 @@ def game():
     e = Engine()
     
     first = 1   # Who goes first (1: Player, 2: Engine)
-    if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
+    if input("Which X (first) or O (second)? [X/O] " + markups.bcyan).strip().upper() == 'O': 
         first = 2
         etype = 'X'
         ptype = 'O'
+    print(markups.normal, end='')
         
     if first == 1:
         ptab(table)
