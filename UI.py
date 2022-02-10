@@ -23,21 +23,13 @@ def ptab(table):
             print(row)
             row = ''
 
-            
-def intable(val):
-    try:
-        int(val)
-        return True
-    except ValueError:
-        return False
-
 
 def get_move():
-    global table
+    table = [0]*9
     move = input("Your move: [1-9] ")
     if move.isnumeric() and int(move) in range(1, 10):
         move = int(move) - 1
-        if table[move] == 0 :
+        if table[move] == 0:
             return move
         else:
             return get_move()
@@ -50,7 +42,7 @@ def game():
     global ptype
     global etype
     first = 1
-    if input("Which X (first) or O (second)? [X/O] ").strip().upper()[0] == 'O': 
+    if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
         first = 2
         etype = 'X'
         ptype = 'O'
@@ -84,7 +76,7 @@ def game():
                 print("Tie.")
             
             # Ask user if they want to play again
-            if input("Play again? [Y/n] ").strip().lower()[0] == 'y':
+            if input("Play again? [Y/n] ").strip().lower() == 'y':
                 ptype = 'X'
                 etype = 'O'
                 game()
