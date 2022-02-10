@@ -3,7 +3,6 @@ from engine import Engine
 markups = True
 # make this False if the code prints gibberish for you
 
-table = [0]*9
 ptype = 'X'
 etype = 'O'
 
@@ -47,12 +46,14 @@ def get_move():
 
 
 def game():
-    global table
+    table = [0]*9
+    global ptype
+    global etype
     first = 1
     if input("Which X (first) or O (second)? [X/O] ").strip().upper()[0] == 'O': 
         first = 2
-        engine_type = 'X'
-        player_type = 'O'
+        etype = 'X'
+        ptype = 'O'
 
     e = Engine()
     
@@ -84,11 +85,11 @@ def game():
             
             # Ask user if they want to play again
             if input("Play again? [Y/n] ").strip().lower()[0] == 'y':
-                table = [0]*9
+                ptype = 'X'
+                etype = 'O'
                 game()
                 return
             else:
-                print("Goodbye.")
                 return
 
 
