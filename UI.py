@@ -12,6 +12,7 @@ class markups:
     bred = '\033[91m\033[1m' if markups else ''
     normal = '\033[0m'
     
+    
 def ptab(table):
     row = ''
     for i in range(9):
@@ -22,6 +23,7 @@ def ptab(table):
             print(row)
             row = ''
 
+            
 def intable(val):
     try:
         int(val)
@@ -32,7 +34,6 @@ def intable(val):
 
 def game():
     global table
-    
     first = 1
     if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
         first = 2
