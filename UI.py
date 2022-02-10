@@ -35,7 +35,7 @@ def intable(val):
 def game():
     global table
     first = 1
-    if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
+    if input("Which X (first) or O (second)? [X/O] ").strip().upper()[0] == 'O': 
         first = 2
         engine_type = 'X'
         player_type = 'O'
@@ -81,7 +81,7 @@ def game():
                 print("Tie.")
             
             # Ask user if they want to play again
-            if input("Play again? [Y/n] ").strip().lower() == 'y':
+            if input("Play again? [Y/n] ").strip().lower()[0] == 'y':
                 table = [0]*9
                 game()
                 return
