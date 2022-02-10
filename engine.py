@@ -7,8 +7,9 @@ class Engine:
 
         Args:
             initial_config (list, optional): Initial tictactoe board configuration. Defaults to [0]*9.
-            The list can only have integer elements of magnitude 0/1/2 where, 0 = No move, 1 = Player's Move, 2 = Engine's Move
+            The list can only have 9 integer elements of magnitude 0/1/2 where, 0 = No move, 1 = Player's Move, 2 = Engine's Move
         """
+        is_valid(initial_config)
         global table
         table = initial_config
         
@@ -18,13 +19,14 @@ class Engine:
 
         Args:
             config (list): tictactoe board configuration
-            The list can only have integer elements of magnitude 0/1/2 where, 0 = No move, 1 = Player's Move, 2 = Engine's Move
+            The list can only have 9 integer elements of magnitude 0/1/2 where, 0 = No move, 1 = Player's Move, 2 = Engine's Move
 
         Returns:
             int: index of engine's move
                  [0-8]: Valid move which exists
-                 -1: When no move exists
+                 -10: When no move exists
         """
+        is_valid(config)
         global table
         table = config
         return next_move()
@@ -35,17 +37,33 @@ class Engine:
 
         Args:
             config (list): tictactoe board configuration
-            The list can only have integer elements of magnitude 0/1/2 where, 0 = No move, 1 = Player's Move, 2 = Engine's Move
+            The list can only have 9 integer elements of magnitude 0/1/2 where, 0 = No move, 1 = Player's Move, 2 = Engine's Move
 
         Returns:
             int: 0 = Game running, 1 = Player Wins, 2 = Engine wins, 3 = Tie
         """
+        is_valid(config)
         c = check(config)
-        if c == 1: return 1
-        elif c == 2: return 2
-        else:
+        if not c:
             if 0 in config: return 0
             else: return 3
+        elif table[c[0]] == 1: return 1
+        elif table[c[0]] == 2: return 2
+
+            
+    def checked_indices(self, config):
+        """Check which line indices matched if any
+
+        Args:
+            config (list): tictactoe board configuration
+            The list can only have 9 integer elements of magnitude 0/1/2 where, 0 = No move, 1 = Player's Move, 2 = Engine's Move
+
+        Returns:
+            False: If no line exists
+            [int, int, int]: matched indices
+        """
+        is_valid(config)
+        return check(config)
 
 
 # TicTacToe Board Configuration
@@ -64,17 +82,17 @@ opposite_corner = {2:6, 6:2, 0:8, 8:0}
 adjacent_corners = {0:[2,6], 2:[0,8], 6:[0,8], 8:[2,6]}
 
 
-# Determine the state of the game
-def end():
-    if not check(table):
-        return 0 not in table
-    else:
-        return 1
+def is_valid(config):
+    if len(config) != 9:
+        raise Exception("config has to have 9 elements")
+    for e in config:
+        if e != 0 and e != 1 and e != 2:
+            raise Exception("config can only contain values 0, 1 or 2")
 
 
 # Return the next move for the engine
 def next_move():
-    if not end():
+    if 0 in table and not check(table):
         my_checks = checked_at(table, 2)
         opponent_checks = checked_at(table, 1)
         if my_checks:
@@ -117,28 +135,28 @@ def next_move():
         return choice(best_moves(stats))
     
     else:
-        return -1
+        return -10
 
 
 def check(table): 
     if table[0] == table[1] == table[2] and table[2]:
-        return table[2]
+        return [0, 1, 2]
     if table[3] == table[4] == table[5] and table[5]:
-        return table[5]
+        return [3, 4, 5]
     if table[6] == table[7] == table[8] and table[8]:
-        return table[8]
+        return [6, 7, 8]
     if table[0] == table[3] == table[6] and table[6]:
-        return table[6]
+        return [0, 3, 6]
     if table[1] == table[4] == table[7] and table[7]:
-        return table[7]
+        return [1, 4, 7]
     if table[2] == table[5] == table[8] and table[8]:
-        return table[8]
+        return [2, 5, 8]
     if table[0] == table[4] == table[8] and table[8]:
-        return table[8]
+        return [0, 4, 8]
     if table[2] == table[4] == table[6] and table[6]:
-        return table[6]
+        return [2, 4, 6]
    
-    return 0     
+    return False
 
 
 def checked_at(table, checker_type):

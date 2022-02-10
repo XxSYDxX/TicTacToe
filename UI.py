@@ -10,15 +10,16 @@ etype = 'O'
 class markups:
     bcyan = '\033[96m\033[1m' if markups else ''
     bred = '\033[91m\033[1m' if markups else ''
+    byellow = '\033[93m\033[1m' if markups else ''
     normal = '\033[0m'
 
 
-def ptab(table):
+def ptab(table, matched_line = []):
     row = ''
     for i in range(9):
         if table[i] == 0: row += ' ' + str(i+1)
-        if table[i] == 1: row += markups.bcyan + ' ' + ptype + markups.normal
-        if table[i] == 2: row += markups.bred + ' ' + etype + markups.normal
+        if table[i] == 1: row += (markups.byellow if i in matched_line else markups.bcyan) + ' ' + ptype + markups.normal
+        if table[i] == 2: row += (markups.byellow if i in matched_line else markups.bred) + ' ' + etype + markups.normal
     
         if i in (2, 5, 8): 
             print(row)
@@ -45,14 +46,14 @@ def game():
     table = [0]*9
     ptype = 'X'
     etype = 'O'
-    first = 1
+    e = Engine()
+    
+    first = 1   # Who goes first (1: Player, 2: Engine)
     if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
         first = 2
         etype = 'X'
         ptype = 'O'
-
-    e = Engine()
-    
+        
     if first == 1:
         ptab(table)
         table[get_move()] = 1
@@ -66,19 +67,20 @@ def game():
             ptab(table)
             table[get_move()] = 1
             emove = e.engine_move(table)
-            if emove == -1:
+            if emove == -10:
                 continue
             table[emove] = 2
-            
         else:
-            ptab(table)
             if finished == 1:
-                print("You won. Dammit, how did you do that?")
+                ptab(table, e.checked_indices(table))
+                print(markups.byellow + "You won. Dammit, how did you do that?")
             elif finished == 2:
-                print("Engine wins.")
+                ptab(table, e.checked_indices(table))
+                print(markups.byellow + "Engine wins.")
             else:
-                print("Tie.")
-            
+                ptab(table)
+                print(markups.byellow + "Tie.")
+            print(markups.normal, end='')
             # Ask user if they want to play again
             if input("Play again? [Y/n] ").strip().lower() == 'y':
                 game()
