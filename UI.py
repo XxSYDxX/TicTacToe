@@ -20,7 +20,6 @@ def ptab(table, matched_line = []):
         if table[i] == 0: row += ' ' + str(i+1)
         if table[i] == 1: row += (markups.byellow if i in matched_line else markups.bcyan) + ' ' + ptype + markups.normal
         if table[i] == 2: row += (markups.byellow if i in matched_line else markups.bred) + ' ' + etype + markups.normal
-    
         if i in (2, 5, 8): 
             print(row)
             row = ''
