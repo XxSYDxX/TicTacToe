@@ -3,6 +3,9 @@ from engine import Engine
 markups = True
 # make this False if the code prints gibberish for you
 
+ptype = 'X'
+etype = 'O'
+
 class markups:
     bcyan = '\033[96m\033[1m' if markups else ''
     bred = '\033[91m\033[1m' if markups else ''
@@ -30,8 +33,8 @@ def intable(val):
 
 def game():
     table = [0]*9
-    ptype = 'X'
-    etype = 'O'
+    global ptype
+    global etype
     first = 1
     if input("Which X (first) or O (second)? [X/O] ").strip().upper()[0] == 'O': 
         first = 2
@@ -80,6 +83,8 @@ def game():
             
             # Ask user if they want to play again
             if input("Play again? [Y/n] ").strip().lower()[0] == 'y':
+                ptype = 'X'
+                etype = 'O'
                 game()
                 return
             else:
