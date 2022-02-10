@@ -30,51 +30,64 @@ def intable(val):
         return False
 
 
-first = 1
-if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
-    first = 2
-    etype = 'X'
-    ptype = 'O'
+def game():
+    global table
+    
+    first = 1
+    if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
+        first = 2
+        engine_type = 'X'
+        player_type = 'O'
 
-e = Engine()
-
-if first == 1:
-    ptab(table)
-    pmove = input("Your move: [1-9] ")
-    while not intable(pmove):
-        pmove = input("Your move: [1-9] ")
-    pmove = int(pmove)-1
-    while pmove < 0 or pmove > 8:
-        pmove = int(input("Your move: [1-9] "))-1
-    table[pmove] = 1
-    table[e.engine_move(table)] = 2
-else:
-    table[e.engine_move(table)] = 2
-
-while 1:
-    finished = e.state(table)
-    if not finished:
+    e = Engine()
+    
+    if first == 1:
         ptab(table)
         pmove = input("Your move: [1-9] ")
         while not intable(pmove):
             pmove = input("Your move: [1-9] ")
         pmove = int(pmove)-1
-        while pmove < 0 or pmove > 8 or table[pmove]:
+        while pmove < 0 or pmove > 8:
             pmove = int(input("Your move: [1-9] "))-1
         table[pmove] = 1
-        emove = e.engine_move(table)
-        if emove == -1:
-            continue
-        table[emove] = 2
-        
+        table[e.engine_move(table)] = 2
     else:
-        ptab(table)
-        if finished == 1:
-            print("You won. Dammit, how did you do that?")
-        elif finished == 2:
-            print("Engine wins.")
+        table[e.engine_move(table)] = 2
+
+    while 1:
+        finished = e.state(table)
+        if not finished:
+            ptab(table)
+            pmove = input("Your move: [1-9] ")
+            while not intable(pmove):
+                pmove = input("Your move: [1-9] ")
+            pmove = int(pmove)-1
+            while pmove < 0 or pmove > 8 or table[pmove]:
+                pmove = int(input("Your move: [1-9] "))-1
+            table[pmove] = 1
+            emove = e.engine_move(table)
+            if emove == -1:
+                continue
+            table[emove] = 2
+            
         else:
-            print("Tie.")
-        
-        input("Hit ENTER.")
-        break
+            ptab(table)
+            if finished == 1:
+                print("You won. Dammit, how did you do that?")
+            elif finished == 2:
+                print("Engine wins.")
+            else:
+                print("Tie.")
+            
+            # Ask user if they want to play again
+            if input("Play again? [Y/n] ").strip().lower() == 'y':
+                table = [0]*9
+                game()
+                return
+            else:
+                print("Goodbye.")
+                return
+
+
+if __name__ == '__main__':
+    game()
