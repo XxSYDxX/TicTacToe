@@ -38,8 +38,8 @@ def game():
     first = 1
     if input("Which X (first) or O (second)? [X/O] ").strip().upper()[0] == 'O': 
         first = 2
-        engine_type = 'X'
-        player_type = 'O'
+        etype = 'X'
+        ptype = 'O'
 
     e = Engine()
     
@@ -88,7 +88,6 @@ def game():
                 game()
                 return
             else:
-                print("Goodbye.")
                 return
 
 
