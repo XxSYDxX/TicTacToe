@@ -3,6 +3,7 @@ from engine import Engine
 markups = True
 # make this False if the code prints gibberish for you
 
+table = [0]*9
 ptype = 'X'
 etype = 'O'
 
@@ -26,7 +27,9 @@ def ptab(table):
 
 def get_move():
     table = [0]*9
-    move = input("Your move: [1-9] ")
+    move = input("Your move: [1-9/q] ")
+    if move.lower().strip() == 'q':
+        exit()
     if move.isnumeric() and int(move) in range(1, 10):
         move = int(move) - 1
         if table[move] == 0:
@@ -38,9 +41,10 @@ def get_move():
 
 
 def game():
+    global table; global ptype; global etype
     table = [0]*9
-    global ptype
-    global etype
+    ptype = 'X'
+    etype = 'O'
     first = 1
     if input("Which X (first) or O (second)? [X/O] ").strip().upper() == 'O': 
         first = 2
@@ -77,12 +81,9 @@ def game():
             
             # Ask user if they want to play again
             if input("Play again? [Y/n] ").strip().lower() == 'y':
-                ptype = 'X'
-                etype = 'O'
                 game()
-                return
             else:
-                return
+                exit()
 
 
 if __name__ == '__main__':
