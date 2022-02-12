@@ -130,7 +130,6 @@ def next_move():
                 sim_table = table.copy()
                 sim_table[i] = 2
                 search(i, sim_table, stats, False)
-                    
         return choice(best_moves(stats))
     
     else:
