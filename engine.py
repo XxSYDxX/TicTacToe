@@ -153,7 +153,6 @@ def check(table):
         return [0, 4, 8]
     if table[2] == table[4] == table[6] and table[6]:
         return [2, 4, 6]
-   
     return False
 
 
