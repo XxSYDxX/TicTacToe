@@ -24,7 +24,7 @@ class Engine:
         Returns:
             int: index of engine's move
                  [0-8]: Valid move which exists
-                 -10: When no move exists
+                 9: When no move exists
         """
         is_valid(config)
         global table
@@ -127,15 +127,14 @@ def next_move():
         for i in range(9):
             if table[i] == 0:
                 stats[i] = [0, 0, 0]
-                investgating = i
                 sim_table = table.copy()
                 sim_table[i] = 2
-                search(investgating, sim_table, stats, False)
+                search(i, sim_table, stats, False)
                     
         return choice(best_moves(stats))
     
     else:
-        return -10
+        return 9
 
 
 def check(table): 
@@ -160,57 +159,57 @@ def check(table):
 
 
 def checked_at(table, checker_type):
-    stable = table.copy()
+    sim_table = table.copy()
     checks = []
     for i in range(9):
-        if stable[i]  == 0:
-            stable[i] = checker_type
-            if check(stable):
+        if sim_table[i]  == 0:
+            sim_table[i] = checker_type
+            if check(sim_table):
                 checks.append(i)
-            stable[i] = 0
+            sim_table[i] = 0
     return checks
 
 
-def search(invsgt, stable, stats, my_turn):
+def search(investigating, sim_table, stats, my_turn):
     type_ = 2 if my_turn else 1
     
-    if 0 not in stable:
-        stats[invsgt][1] += 1
+    if 0 not in sim_table:
+        stats[investigating][1] += 1
         
-    i_checked = checked_at(stable, type_)
+    i_checked = checked_at(sim_table, type_)
     if i_checked:
-        stable[i_checked[0]] = type_
-        search(invsgt, stable, stats, not my_turn)
-        stable[i_checked[0]] = 0
+        sim_table[i_checked[0]] = type_
+        search(investigating, sim_table, stats, not my_turn)
+        sim_table[i_checked[0]] = 0
         return
     
     if my_turn:
-        checks = checked_at(stable, 1)
+        checks = checked_at(sim_table, 1)
         if len(checks) == 1:
-            stable[checks[0]] = type_
-            search(invsgt, stable, stats, not my_turn)
-            stable[checks[0]] = 0
+            sim_table[checks[0]] = type_
+            search(investigating, sim_table, stats, not my_turn)
+            sim_table[checks[0]] = 0
             return
         elif len(checks) > 1:
-            stats[invsgt][2] += 1
+            stats[investigating][2] += 1
             return
         
     if not my_turn:
-        checks = checked_at(stable, 2)
+        checks = checked_at(sim_table, 2)
         if len(checks) == 1:
-            stable[checks[0]] = type_
-            search(invsgt, stable, stats, not my_turn)
-            stable[checks[0]] = 0
+            sim_table[checks[0]] = type_
+            search(investigating, sim_table, stats, not my_turn)
+            sim_table[checks[0]] = 0
             return
         elif len(checks) > 1:
-            stats[invsgt][0] += 1
+            stats[investigating][0] += 1
             return
             
     for i in range(9):
-        if not stable[i]:
-            stable[i] = type_
-            search(invsgt, stable, stats, not my_turn)
-            stable[i] = 0
+        if not sim_table[i]:
+            sim_table[i] = type_
+            search(investigating, sim_table, stats, not my_turn)
+            sim_table[i] = 0
         
 
 def best_moves(stats):
