@@ -3,7 +3,7 @@ from random import choice
 
 class Engine:
     def __init__(self, initial_config = [0]*9):
-        """Initiates the engine.
+        """Initiates the engine
 
         Args:
             initial_config (list, optional): Initial tictactoe board configuration. Defaults to [0]*9.
@@ -15,7 +15,7 @@ class Engine:
         
         
     def engine_move(self, config):
-        """Updates the tictactoe board configuration. The engine will calculate the next move if any exists.
+        """Finds the best next move for a given tictactoe board configuration
 
         Args:
             config (list): tictactoe board configuration
@@ -52,7 +52,7 @@ class Engine:
 
             
     def checked_indices(self, config):
-        """Check which line indices matched if any
+        """Checks which line indices matched if any did
 
         Args:
             config (list): tictactoe board configuration
@@ -100,7 +100,7 @@ def next_move():
         if opponent_checks:
             return choice(opponent_checks)
         
-        # Hardcoded stats for offence
+        # Hardcoded strats for offence
         if table.count(0) == 9:
             return choice(corners)
         if table.count(1) == 1 and table.count(2) == 1:
