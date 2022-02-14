@@ -69,7 +69,7 @@ def game():
             ptab(table)
             table[get_move()] = 1
             emove = e.engine_move(table)
-            if emove == -10:
+            if emove == 9:
                 continue
             table[emove] = 2
         else:
