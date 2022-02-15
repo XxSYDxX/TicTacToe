@@ -77,6 +77,7 @@ class GUI:
             if self.etype == 'X':
                 self.table[self.e.engine_move(self.table)] = 2
                 self.update()
+
             self.ng.config(state='normal')
             self.activate()
         
@@ -110,9 +111,9 @@ class GUI:
             else:
                 box.itemconfig(inr, fill='black')
         
-        self.c_wids['e'].config(text=f'engine\n{self.counts[2]}')
+        self.c_wids['e'].config(text=f'engine ({self.etype.lower()})\n{self.counts[2]}')
         self.c_wids['t'].config(text=f'tie\n{self.counts[3]}')
-        self.c_wids['p'].config(text=f'player\n{self.counts[1]}')
+        self.c_wids['p'].config(text=f'player ({self.ptype.lower()})\n{self.counts[1]}')
 
     def on_random_click(self, i):
         self.new_game()
