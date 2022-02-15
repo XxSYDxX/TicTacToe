@@ -2,7 +2,7 @@
 An "Engine" for TicTacToe
 
 The game now has a GUI. Just run `gui.py` with python3.
-[Courtesy of github.com/was07]
+[Courtesy of @was07]
 
 If don't have tkinter installed or you prefer old terminal style programs play the game running `ui.py` with python3.
 
