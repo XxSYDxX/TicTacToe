@@ -109,7 +109,7 @@ class GUI:
             elif self.table[i] == 2:
                 box.itemconfig(inr, fill='white', text='✕' if self.etype == 'X' else '〇')
             else:
-                box.itemconfig(inr, fill='black')
+                box.itemconfig(inr, fill='black', text='')
         
         self.c_wids['e'].config(text=f'engine ({self.etype.lower()})\n{self.counts[2]}')
         self.c_wids['t'].config(text=f'tie\n{self.counts[3]}')
