@@ -1,18 +1,15 @@
-from re import S
 from src.engine import Engine
-
 import tkinter as t
 
 
 class GUI:
-    
     def __init__(self):
         self.palate = ['#131414', '#FFFFFF', '#FF0000']  # [bg, fg, fg2]
         self.table = [0] * 9
         self.e = Engine()
         self.ptype = 'O'
         self.etype = 'X'
-
+        
         self.root = root = t.Tk()
         root.config(bg=self.palate[0])
         root.title("TicTacToe")
@@ -20,15 +17,12 @@ class GUI:
         root.configure(background='grey')
 
         self.frs = []
-
         for i in range(9):
             box = t.Canvas(root, width=150, height=150, bg='black', borderwidth=0, highlightthickness=2)
             inr = box.create_text(75, 75, text="", fill='black', font=('', 110, 'bold'))
             box.bind('<Button-1>', lambda e, i=i: self.move(i))
-
             box.grid(row=i//3, column=i%3)
             box.columnconfigure(0, weight=0)
-
             self.frs.append((inr, box))
         
         self.counts = {1: 0, 2: 0, 3: 0}
@@ -49,19 +43,23 @@ class GUI:
         self.new_game()
         root.mainloop()
     
+    
     def clear(self):
         self.table = [0] * 9
         self.update()
+    
     
     def inactivate(self):
         for i in range(9):
             inr, box = self.frs[i]
             box.bind('<Button-1>', lambda e, i=i: self.on_random_click(i))
     
+    
     def activate(self):
         for i in range(9):
             inr, box = self.frs[i]
             box.bind('<Button-1>', lambda e, i=i: self.move(i))
+
 
     def new_game(self):
         self.clear()
