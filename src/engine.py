@@ -67,11 +67,7 @@ class Engine:
 
 
 # TicTacToe Board Configuration
-table = [
-    2,1,1,
-    1,2,2,
-    1,2,1,
-]
+table = [0,]*9
 # 0 = Empty square
 # 1 = Move by player
 # 2 = Move by engine
