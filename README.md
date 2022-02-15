@@ -1,13 +1,15 @@
 # TicTacToe
 An "Engine" for TicTacToe
 
-You can play TicTacToe with the engine running `UI.py` with python3.
-The file `engine.py` is designed so you can make your own UI.
+The game now has a GUI. Just run `gui.py` with python3.
+[Courtesy of github.com/was07]
 
-The goal of the engine is to be unbeatable. So, far it hasn't been defeated. Let me know if you can beat it!
+If don't have tkinter installed or you prefer old terminal style programs play the game running `ui.py` with python3.
+
+The file `src/engine.py` is designed so you can make your own UI. The goal of the engine is to be unbeatable. So, far it hasn't been defeated. Let me know if you can beat it!
 
 
-# Troubleshooting UI issues
+# Troubleshooting UI issues (Only if you run ui.py)
 * Make sure to run UI.py in a sophisticated terminal. The default windows command prompt cannot print the text markups. So, it will end up looking like this:
 
 ![image](https://user-images.githubusercontent.com/36256481/153246670-3822ee56-7ffc-436b-a284-f72e1f6d5fba.png)
